@@ -8,6 +8,15 @@
 	<div class="box-header with-border">
 		<h3 class="box-title">/board/read.jsp</h3>
 	</div>
+	
+		
+		<form action="" method="post">
+<%-- 			<input type="text" name="bno" value="${resultVO.bno }"> --%>
+			<input type="hidden" name="bno" value="${param.bno }">
+		</form>
+	
+	
+	
 		<div class="box-body">
 			<div class="form-group">
 				<label for="exampleInputEmail1">번 호</label> 
@@ -31,6 +40,8 @@
 			</div>
 		</div>
 		<div class="box-footer">
+			<button type="submit" class="btn btn-danger">수정</button>
+			<button type="submit" class="btn btn-">삭제</button>
 			<button type="submit" class="btn btn-primary">리스트</button>
 										<!-- 선택자 -->
 		</div>
@@ -39,10 +50,21 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		// '리스트' 버튼 클릭 시 리스트 페이지로 이동
-		$(".btn-primary").click(function(){
+			
+			// '수정' 버튼 클릭
+			$(".btn-danger").click(function(){
+				//alert("수정 버튼");
+				// 수정페이지로 이동(+bno)
+				$("form").attr("action","/board/modify");
+				$("form").attr("method","GET");
+				$("form").submit();
+				
+			});
+			
+			// '리스트' 버튼 클릭 시 리스트 페이지로 이동
 			// '.' : 선택자 사용 시 선택자 앞에 .
 			// alert("클릭!");
+			$(".btn-primary").click(function(){
 			location.href='/web/board/listALL';
 			
 		});
