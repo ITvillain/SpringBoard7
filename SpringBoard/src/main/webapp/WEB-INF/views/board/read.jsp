@@ -3,15 +3,16 @@
     
 <%@ include file="../include/header.jsp" %>
     
-	<h1>/board/read.jsp</h1>
+	<h1>/board/modify.jsp</h1>
+	${resultVO }
 <div class="box box-primary">
 	<div class="box-header with-border">
 		<h3 class="box-title">/board/read.jsp</h3>
 	</div>
 	
 		
-		<form action="" method="post">
-<%-- 			<input type="text" name="bno" value="${resultVO.bno }"> --%>
+		<form role="form" action="" method="post">
+			<%-- <input type="text" name="bno" value="${resultVO.bno }"> --%>
 			<input type="hidden" name="bno" value="${param.bno }">
 		</form>
 	
@@ -55,9 +56,9 @@
 			$(".btn-danger").click(function(){
 				//alert("수정 버튼");
 				// 수정페이지로 이동(+bno)
-				$("form").attr("action","/board/modify");
-				$("form").attr("method","GET");
-				$("form").submit();
+				$("form[role='form']").attr("action","/web/board/modify");
+				$("form[role='form']").attr("method","GET");
+				$("form[role='form']").submit();
 				
 			});
 			
