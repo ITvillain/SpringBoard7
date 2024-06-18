@@ -3,6 +3,7 @@ package com.itwillbs.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -150,6 +151,23 @@ public class BoardController {
 		rttr.addFlashAttribute("msg", "updateOK");
 		
 		// 페이지 이동(listALL.jsp) 
+		return "redirect:/board/listALL";
+	}
+	
+	// 게시판 글 삭제하기 - POST
+	@RequestMapping(value = "/remove",method = RequestMethod.POST)
+	public String removePOST(RedirectAttributes rttr,@RequestParam("bno") int bno) throws Exception {
+		logger.debug("removePOST() 실행");
+		
+		logger.debug(" 삭제할 글 번호 : {} ", bno);
+		
+		// 서비스 - DAO 글 삭제 동작
+		bService.deleteBoard(bno);
+		
+		// 전달정보 전달
+		rttr.addFlashAttribute("msg", "deleteOK");
+		
+		// 페이지 이동
 		return "redirect:/board/listALL";
 	}
 	
