@@ -56,6 +56,15 @@ public class BoardDAOImpl implements BoardDAO {
 		sqlSession.update(NAMESPACE + "updateBoard", vo);
 		
 	}
+
+	@Override
+	public void deleteBoard(int bno) {
+		logger.debug(" deleteBoard(int bno) 실행 ");
+		sqlSession.delete(NAMESPACE + "deleteBoard", bno);
+		
+	}
+
+	
 	
 	
 	

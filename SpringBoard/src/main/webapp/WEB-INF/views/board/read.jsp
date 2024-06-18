@@ -42,7 +42,7 @@
 		</div>
 		<div class="box-footer">
 			<button type="submit" class="btn btn-danger">수정</button>
-			<button type="submit" class="btn btn-">삭제</button>
+			<button type="submit" class="btn btn-warning">삭제</button>
 			<button type="submit" class="btn btn-primary">리스트</button>
 										<!-- 선택자 -->
 		</div>
@@ -60,6 +60,12 @@
 				$("form[role='form']").attr("method","GET");
 				$("form[role='form']").submit();
 				
+			});
+			
+			// '삭제' 버튼 클릭
+			$(".btn-warning").click(function(){
+				$("form[role='form']").attr("action","/web/board/remove");
+				$("form[role='form']").submit();
 			});
 			
 			// '리스트' 버튼 클릭 시 리스트 페이지로 이동
