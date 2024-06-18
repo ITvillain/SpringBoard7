@@ -36,6 +36,21 @@ public class BoardDAOImpl implements BoardDAO {
 		
 		return sqlSession.selectList(NAMESPACE + "listALL");
 	}
+
+	@Override
+	public void updateReadCnt(int bno) throws Exception {
+		logger.debug(" updateReadCnt(int bno) 실행 ");
+		
+		sqlSession.update(NAMESPACE + "updateReadCnt",bno);
+	}
+
+	@Override
+	public BoardVO getBoard(int bno) throws Exception {
+		logger.debug(" getBoard(int bno) 실행 ");
+		return sqlSession.selectOne(NAMESPACE + "getBoard", bno);
+	}
+	
+	
 	
 	 
 	 
