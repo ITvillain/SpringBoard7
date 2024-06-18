@@ -47,6 +47,14 @@ public class BoardServiceImpl implements BoardService{
 		logger.debug(" getBoard(int bno) 실행 ");
 		return bdao.getBoard(bno);
 	}
+
+	@Override
+	public void updateBoard(BoardVO vo) throws Exception {
+		logger.debug(" updateBoard(BoardVO vo) 실행 ");
+		bdao.updateBoard(vo);
+	}
+
+	
 	
 	
 	
