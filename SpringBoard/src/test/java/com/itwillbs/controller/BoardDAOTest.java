@@ -1,5 +1,7 @@
 package com.itwillbs.controller;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -9,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.itwillbs.domain.BoardVO;
+import com.itwillbs.domain.Criteria;
 import com.itwillbs.persistence.BoardDAO;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,9 +34,45 @@ public class BoardDAOTest {
 		vo.setTitle("테스트글1");
 		vo.setContent("테스트 내용111");
 		vo.setWriter("테스트1");
-		
-		bdao.create(vo);
-	}
-	
 
+		bdao.create(vo);
+//	      try {
+//	         bdao.create(vo);
+//	      } catch (Exception e) {
+//	         // TODO Auto-generated catch block
+//	         e.printStackTrace();
+//	      }
+
+	}
+
+	@Test
+	public void 게시판페이징처리1_test() throws Exception {
+
+	    //int page = 1;
+		int page = 2;
+
+		// DAO 의 페이징 처리 동작 호출
+		List<BoardVO> boardList = bdao.listPage(page);
+
+		// 글번호 : 제목
+		for (BoardVO vo : boardList)
+			logger.debug(vo.getBno() + "//" + vo.getTitle());
+
+	}
+
+	@Test
+	public void 게시판페이징처리2_test() throws Exception {
+		
+		Criteria cri = new Criteria();
+		cri.setPage(3);
+		cri.setPageSize(20);
+		
+		// DAO 의 페이징 처리 동작 호출
+		List<BoardVO> boardList = bdao.listPage(cri);
+		
+		// 글번호 : 제목
+		for (BoardVO vo : boardList)
+			logger.debug(vo.getBno() + "//" + vo.getTitle());
+		
+	}
 }
