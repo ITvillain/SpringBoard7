@@ -37,3 +37,70 @@
     
     
   	@Qualifier : 객체의 
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	private DataSource ds;
+  	
+  	
+  	
+  	// 하단 페이징처리
+  	
+  	- 시작페이지 번호(startPage)
+  		startPage = (endPage - 블럭갯수) + 1
+  	- 끝페이지 번호(endPage)
+  		endPage = (int) (올림(페이지번호/블럭갯수) * 블럭갯수 ) 
+  		
+  		=> 추가 변경(글 총 갯수 < 끝 페이지) 
+  		진짜 endPage = 올림(전체 글의 갯수 / 페이지 출력)
+  		 
+  	- 전체 글의 개수 (DB조회 - count())
+  	- 이전 페이지(preview)
+  		preview = startPage == 1? false:true; 
+  		preview = startPage != 1; 
+  		
+  	- 다음 페이
+  		next = endPage * 페이지당 >= 출력 전체 글갯수? false : true;
+  		next = endPage * 페이지당 >= 출력 전체 글갯수? false : true;
+  	
+  	** 총 123개 / 페이지당 10개씩 출력
+  	   총 페이지 13 / 페이지 블럭 10개
+  	
+  	- 3페이지
+  	 => startPage : 1, endPage : 10, next : o, preview : x
+  	- 10페이지
+  	 => startPage : 1, endPage : 10, next : o, preview : x
+  	- 12페이지
+  	 => startPage : 11, endPage : 20->13, next : x, preview : o
+  	- 13페이지
+  	 => startPage : 11, endPage : 20->13, next : x, preview : o
+  	 
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	
+  	

@@ -12,7 +12,7 @@
 	<h1>/board/list.jsp</h1>
 
 <%-- 	${boardList } --%>
-
+${pageVO }
 전달정보 : ${msg } <hr>
 
 
@@ -35,7 +35,8 @@
 					<tr>
 						<td>${vo.bno }</td>
 						<td>
-							<a href="/web/board/read?bno=${vo.bno }">${vo.title }</a>
+							<a href="/web/board/read?bno=${vo.bno }&page=${param.page==null? 1:param.page}">${vo.title }</a>
+																    <!-- null 일때 1, 아니면 param.page 정보 -->
 						</td>
 						<td>${vo.writer }</td>
 						<td>
@@ -50,11 +51,20 @@
 
 	<div class="box-footer clearfix">
 		<ul class="pagination pagination-sm no-margin pull-right">
-			<li><a href="#">«</a></li>
-			<li><a href="#">1</a></li>
-			<li><a href="#">2</a></li>
-			<li><a href="#">3</a></li>
-			<li><a href="#">»</a></li>
+			<c:if test="${pageVO.prev }">
+				<li><a href="/web/board/listPage?page=${pageVO.startPage - 1 }">«</a></li>
+			</c:if>
+			
+			<c:forEach var="i"
+						begin="${pageVO.startPage }" end="${pageVO.endPage }" step="1">
+				<li ${pageVO.cri.page == i? 'class="active"':'' }>
+					<a href="/web/board/listPage?page=${i }">${i }</a>
+				</li>
+			</c:forEach>
+			
+			<c:if test="${pageVO.next && pageVO.endPage > 0 }">
+				<li><a href="/web/board/listPage?page=${pageVO.endPage + 1 }">»</a></li>
+			</c:if>
 		</ul>
 	</div>
 
