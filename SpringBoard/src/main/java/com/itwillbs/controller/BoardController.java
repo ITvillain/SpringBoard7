@@ -48,6 +48,7 @@ public class BoardController {
 		// 한글 인코딩(필터 처리)
 		// 전달정보 저장
 		logger.debug(" vo : " + vo);
+		logger.debug(" vo : {} " + vo);
 		
 		// 서비스 -> DAO에 동작 호출
 		bService.regist(vo);
@@ -56,7 +57,7 @@ public class BoardController {
 		rttr.addFlashAttribute("msg", "createOk");
 		
 		// 페이지 이동
-		return "redirect:/board/listALL";
+		return "redirect:/board/listPage";
 //		return "redirect:/board/listALL?msg=createOK";
 //		return "/board/list";
 	}
@@ -82,7 +83,7 @@ public class BoardController {
 	
 	// 게시판 본문보기 - readGET
 	@RequestMapping(value = "/read",method = RequestMethod.GET)
-	public void readGET(@ModelAttribute("bno") int bno, Model model) throws Exception {
+	public void readGET(Criteria cri, @ModelAttribute("bno") int bno, Model model) throws Exception {
 		// @ModelAttribute("bno") int bno
 		// => 주소줄에 있는 데이터를 가져와서 사용, 연결된 뷰페이지로 이동 $ {bno}
 		//	  request.getParameter("bno") + request.setAttribute();
@@ -106,6 +107,8 @@ public class BoardController {
 		
 		// 전달할 정보를 저장(model)
 		model.addAttribute("resultVO", resultVO);
+		
+		model.addAttribute("cri", cri);
 		
 		// 연결된 뷰페이지 이동
 		
@@ -140,7 +143,7 @@ public class BoardController {
 	
 	// 게시판 글 수정하기(글정보 수정) - POST
 	@RequestMapping(value = "/modify",method = RequestMethod.POST)
-	public String modifyPOST(BoardVO vo,RedirectAttributes rttr) throws Exception{
+	public String modifyPOST(Criteria cri,BoardVO vo,RedirectAttributes rttr) throws Exception{
 		logger.debug(" modifyPOST() 실행 ");
 		// 한글처리 인코딩(필터)
 		// 전달정보 저장
@@ -151,14 +154,21 @@ public class BoardController {
 		
 		// 상태 정보 전달
 		rttr.addFlashAttribute("msg", "updateOK");
+		//rttr.addFlashAttribute("page", cri.getPage());  (X) request 영역에 저장
+		rttr.addAttribute("page", cri.getPage());
+		// Flash : 주소줄에 표시 x, 새로고침시 데이터 날아감
+		// Attribute : 남음
+		// model 객체가 아닌 redirect를 썼지만 MODEL 안에 redirect가 포함됨
 		
 		// 페이지 이동(listALL.jsp) 
-		return "redirect:/board/listALL";
+		//return "redirect:/board/listALL";
+		return "redirect:/board/listPage?page="+cri.getPage();
+		
 	}
 	
 	// 게시판 글 삭제하기 - POST
 	@RequestMapping(value = "/remove",method = RequestMethod.POST)
-	public String removePOST(RedirectAttributes rttr,@RequestParam("bno") int bno) throws Exception {
+	public String removePOST(Criteria cri,RedirectAttributes rttr,@RequestParam("bno") int bno) throws Exception {
 		logger.debug("removePOST() 실행");
 		
 		logger.debug(" 삭제할 글 번호 : {} ", bno);
@@ -168,9 +178,11 @@ public class BoardController {
 		
 		// 전달정보 전달
 		rttr.addFlashAttribute("msg", "deleteOK");
+		rttr.addAttribute("page", cri.getPage());
 		
 		// 페이지 이동
-		return "redirect:/board/listALL";
+		//return "redirect:/board/listALL";
+		return "redirect:/board/listPage";
 	}
 	
 	@GetMapping(value = "/listPage")

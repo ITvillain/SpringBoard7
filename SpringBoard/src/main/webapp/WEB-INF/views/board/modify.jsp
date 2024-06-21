@@ -3,18 +3,17 @@
     
 <%@ include file="../include/header.jsp" %>
     
-	<h1>/board/read.jsp</h1>
+	<h1>/board/modify.jsp</h1>
 <div class="box box-primary">
 	<div class="box-header with-border">
-		<h3 class="box-title">/board/read.jsp</h3>
+		<h3 class="box-title">/board/modify.jsp</h3>
 	</div>
 
 
 	<form role="form" action="" method="post">
-
-
-
-
+	
+	 <input type="hidden" name="page" value="${param.page }">
+<%-- 	 <input type="hidden" name="pageSize" value="${param.pageSize }"> --%>
 
 
 		<div class="box-body">

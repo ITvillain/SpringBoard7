@@ -14,6 +14,9 @@
 		<form role="form" action="" method="post">
 			<%-- <input type="text" name="bno" value="${resultVO.bno }"> --%>
 			<input type="hidden" name="bno" value="${param.bno }">
+			<input type="hidden" name="page" value="${cri.page }">
+			<input type="hidden" name="pageSize" value="${cri.pageSize }">
+			
 		</form>
 	
 	
@@ -72,12 +75,15 @@
 			// '.' : 선택자 사용 시 선택자 앞에 .
 			// alert("클릭!");
 			$(".btn-primary").click(function(){
-			location.href='/web/board/listALL';
+			//location.href='/web/board/listALL';
+			//location.href='/web/board/listPage?page=${cri.page}&pageSize=${cri.pageSize}';
+			location.href='/web/board/listPage?page=${cri.page}';
 			
 		});
 		
 	});
 </script>
 
+<%-- ${cri } --%>
 
 <%@ include file="../include/footer.jsp" %>

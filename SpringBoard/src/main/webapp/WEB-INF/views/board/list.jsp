@@ -35,7 +35,8 @@ ${pageVO }
 					<tr>
 						<td>${vo.bno }</td>
 						<td>
-							<a href="/web/board/read?bno=${vo.bno }">${vo.title }</a>
+							<a href="/web/board/read?bno=${vo.bno }&page=${param.page==null? 1:param.page}">${vo.title }</a>
+																    <!-- null 일때 1, 아니면 param.page 정보 -->
 						</td>
 						<td>${vo.writer }</td>
 						<td>
